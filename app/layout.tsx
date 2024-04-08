@@ -3,6 +3,9 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
 import Appbar from "./components/Appbar";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { SessionProvider } from "next-auth/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,8 +22,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Appbar />
-        <Providers>{children}</Providers>
+        <SessionProvider>
+          <Appbar />
+          <Providers>
+            {children}
+            <ToastContainer />
+          </Providers>
+        </SessionProvider>
       </body>
     </html>
   );

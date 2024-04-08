@@ -3,10 +3,10 @@ import {
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-  Link,
-  Button,
-} from "@nextui-org/react";
+} from "@nextui-org/navbar";
 import { AcmeLogo } from "./AcmeLogo";
+import Link from "next/link";
+import SigninButton from "./SigninButton";
 
 export default function Appbar() {
   return (
@@ -17,9 +17,7 @@ export default function Appbar() {
       </NavbarBrand>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem>
-          <Link color="foreground" href="/">
-            Features
-          </Link>
+          <Link href="/">Features</Link>
         </NavbarItem>
         <NavbarItem isActive>
           <Link href="/" aria-current="page">
@@ -27,9 +25,7 @@ export default function Appbar() {
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link color="foreground" href="/">
-            Integrations
-          </Link>
+          <Link href="/">Integrations</Link>
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
@@ -37,9 +33,8 @@ export default function Appbar() {
           <Link href="/">Login</Link>
         </NavbarItem>
         <NavbarItem>
-          <Button as={Link} color="primary" href="/auth/signup" variant="flat">
-            Sign Up
-          </Button>
+          {/* <Link href="/auth/signup">Sign up</Link> */}
+          <SigninButton />
         </NavbarItem>
       </NavbarContent>
     </Navbar>

@@ -6,6 +6,7 @@ import Google from "next-auth/providers/google";
 import Github from "next-auth/providers/github";
 import prisma from "./utils/db";
 import * as bcrypt from "bcryptjs";
+import { User } from "@prisma/client";
 
 const credentialsConfig = CredentialsProvider({
   name: "Crendentials",
@@ -45,8 +46,20 @@ const credentialsConfig = CredentialsProvider({
 }) satisfies CredentialsConfig;
 
 const authConfig = {
+  pages: {
+    signIn: "/auth/signin",
+  },
   providers: [Google, Github, credentialsConfig],
-  callbacks: {},
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) token.user = user as User;
+      return token;
+    },
+    async session({ token, session }) {
+      session.user = token.user;
+      return session;
+    },
+  },
 } satisfies NextAuthConfig;
 
 export const { handlers, auth, signIn, signOut } = NextAuth(authConfig);
