@@ -47,6 +47,7 @@ const SignInForm = (props: Props) => {
       return;
     }
 
+    toast.success("Welcome My Friend!");
     router.push(props.callbackUrl ? props.callbackUrl : "/");
   };
 
